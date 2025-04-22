@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign Up</title>
+  <style>
+    body {
+      background-image: url('https://yeditepe.edu.tr/sites/default/files/2021-12/17_1_0.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      width: 350px;
+    }
+
+    .fixed-logo {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      width: 50px;
+      height: auto;
+      z-index: 999;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.1s ease-in-out;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .input-wrapper {
+      position: relative;
+      margin: 10px 0;
+      width: 100%;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      height: 42px;
+      padding: 10px 40px 10px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: #4CAF50;
+      cursor: pointer;
+      z-index: 10;
+      user-select: none;
+      line-height: 1;
+    }
+
+    #confirm-error {
+      color: red;
+      display: none;
+      font-size: 15px;
+      font-weight: bold;
+      margin-top: -5px;
+    }
+
+    #lang-buttons {
+      position: fixed;
+      bottom: 10px;
+      right: 15px;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      z-index: 1000;
+    }
+
+    #lang-buttons span {
+      color: white;
+      cursor: pointer;
+      margin: 0 5px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    #lang-buttons span:hover,
+    #lang-buttons span.active {
+      color: #001F3F;
+      text-decoration: underline;
+    }
+
+    
+  </style>
+</head>
+<body>
+
+
+  <div class="container">
+    <h2 data-key="signup_title">Sign Up</h2>
+
+    <form onsubmit="return validateForm(event)">
+      <input type="text" placeholder="Full Name" data-key-placeholder="fullname" required />
+      <input id="email" type="email" placeholder="Student Email (@std.yeditepe.edu.tr)" data-key-placeholder="email" required />
+      <p id="error" data-key="email_error" style="display:none; color:red; font-size: 13px; margin-top: -5px;"></p>
+
+      <div class="input-wrapper">
+        <input id="password" type="password" placeholder="Password" data-key-placeholder="password" required />
+        <span class="toggle-password" onclick="togglePassword('password')">👁</span>
+      </div>
+
+      <div class="input-wrapper">
+        <input id="confirm-password" type="password" placeholder="Confirm Password" data-key-placeholder="confirm_password" required />
+        <span class="toggle-password" onclick="togglePassword('confirm-password')">👁</span>
+      </div>
+
+      <p id="confirm-error" data-key="confirm_error">Passwords do not match</p>
+
+      <button type="submit" data-key="register_btn">Register</button>
+
+      <p>
+        <span data-key="already">Already have an account?</span>
+        <a href="login.html" data-key="login_link">Login</a>
+        <img class="logo" src="logoyeditepe.png" alt="YUniThrift Logo" style="height: 100px; margin-left: 20px; vertical-align: middle;">
+      </p>
+    </form>
+  </div>
+
+  <!-- Dil Seçimi -->
+  <div id="lang-buttons">
+    <span id="btn-tr">TR</span> |
+    <span id="btn-en">EN</span>
+  </div>
+
+  <script>
+    function validateForm(event) {
+      event.preventDefault(); // Formun otomatik gitmesini engelle
+      const email = document.getElementById("email").value;
+      const error = document.getElementById("error");
+      const password = document.getElementById("password").value;
+      const confirm = document.getElementById("confirm-password").value;
+      const confirmError = document.getElementById("confirm-error");
+
+      let valid = true;
+
+      if (!email.endsWith("@std.yeditepe.edu.tr")) {
+        error.style.display = "block";
+        error.innerText = translations[currentLang].email_error;
+        valid = false;
+      } else {
+        error.style.display = "none";
+      }
+
+      if (password !== confirm) {
+        confirmError.style.display = "block";
+        confirmError.innerText = translations[currentLang].confirm_error;
+        valid = false;
+      } else {
+        confirmError.style.display = "none";
+      }
+
+      if (valid) {
+      // Kullanıcı bilgilerini kaydet
+        localStorage.setItem("registeredEmail", email);
+        localStorage.setItem("registeredPassword", password);
+        alert("Registration successful!");
+        window.location.href = "login.html"; // login sayfasına yönlendir
+      }
+    }
+
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === "password" ? "text" : "password";
+    }
+
+    const translations = {
+      en: {
+        signup_title: "Sign Up",
+        fullname: "Full Name",
+        email: "Student Email (@std.yeditepe.edu.tr)",
+        password: "Password",
+        confirm_password: "Confirm Password",
+        register_btn: "Register",
+        already: "Already have an account?",
+        login_link: "Login",
+        email_error: "Email must end with @std.yeditepe.edu.tr",
+        confirm_error: "Passwords do not match"
+      },
+      tr: {
+        signup_title: "Kayıt Ol",
+        fullname: "Ad Soyad",
+        email: "Öğrenci Maili (@std.yeditepe.edu.tr)",
+        password: "Şifre",
+        confirm_password: "Şifreyi Tekrar Girin",
+        register_btn: "Kayıt Ol",
+        already: "Zaten hesabın var mı?",
+        login_link: "Giriş Yap",
+        email_error: "Email adresi @std.yeditepe.edu.tr ile bitmelidir",
+        confirm_error: "Şifreler eşleşmiyor"
+      }
+    };
+
+    let currentLang = "en";
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+
+      document.querySelectorAll("[data-key]").forEach(el => {
+        const key = el.getAttribute("data-key");
+        el.innerText = t[key] || el.innerText;
+      });
+
+      document.querySelectorAll("[data-key-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-key-placeholder");
+        el.placeholder = t[key] || el.placeholder;
+      });
+
+      document.getElementById("btn-tr").classList.remove("active");
+      document.getElementById("btn-en").classList.remove("active");
+      document.getElementById("btn-" + lang)?.classList.add("active");
+    }
+
+    document.getElementById("btn-tr").addEventListener("click", () => setLanguage("tr"));
+    document.getElementById("btn-en").addEventListener("click", () => setLanguage("en"));
+    setLanguage("en"); // Varsayılan dil
+  </script>
+</body>
+</html>

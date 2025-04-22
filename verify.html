@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Email Verification</title>
+  <style>
+    body {
+      background-image: url('https://yeditepe.edu.tr/sites/default/files/2021-12/17_1_0.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      text-align: center;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 10px 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 14px;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+    }
+
+    button {
+      background: #4CAF50;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    button:active {
+      transform: scale(0.98);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    #code-error {
+      color: red;
+      font-size: 14px;
+      display: none;
+      margin-top: -5px;
+      font-weight: bold;
+    }
+
+    #code-message {
+      color: green;
+      font-size: 14px;
+      font-weight: bold;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 10px;
+      background: #eee;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 15px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 100%;
+      background: #007BFF;
+      transition: width 1s linear, background-color 0.5s ease;
+    }
+
+    #time-text {
+      font-size: 13px;
+      font-weight: bold;
+      margin-top: 5px;
+      color: #333;
+    }
+
+    #lang-buttons {
+      position: fixed;
+      bottom: 10px;
+      right: 15px;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      z-index: 1000;
+    }
+
+    #lang-buttons span {
+      color: white;
+      cursor: pointer;
+      margin: 0 5px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    #lang-buttons span:hover,
+    #lang-buttons span.active {
+      color: #001F3F;
+      text-decoration: underline;
+    }
+
+    a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2 id="title">Email Verification</h2>
+    <p id="text1">We’ve sent a verification code to your email.</p>
+    <p id="text2">Please enter it below.</p>
+
+    <input type="text" id="code" placeholder="Enter verification code" required />
+    <p id="code-error">Invalid or empty code. Please try again.</p>
+    <p id="code-message">Code resent!</p>
+
+    <button onclick="verifyCode()" id="verify-btn">Verify</button>
+
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div id="time-text">Time left: 30s</div>
+
+    <p style="margin-top: 10px;">
+      Didn't receive the code? <a href="#" onclick="resendCode()">Resend</a>
+    </p>
+    <p style="margin-top: 5px;">
+      <a href="signup.html">Sign up with another email</a>
+    </p>
+  </div>
+
+  <!-- Dil Seçimi -->
+  <div id="lang-buttons">
+    <span id="btn-tr">TR</span> |
+    <span id="btn-en">EN</span>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        title: "Email Verification",
+        text1: "We’ve sent a verification code to your email.",
+        text2: "Please enter it below.",
+        code_placeholder: "Enter verification code",
+        verify_btn: "Verify",
+        code_error: "Invalid or empty code. Please try again.",
+        code_message: "Code resent!",
+        time_left: "Time left: ",
+        resend_link: "Didn't receive the code? Resend",
+        sign_up_alt: "Sign up with another email"
+      },
+      tr: {
+        title: "E-posta Doğrulama",
+        text1: "Doğrulama kodunu e-posta adresinize gönderdik.",
+        text2: "Lütfen aşağıya girin.",
+        code_placeholder: "Doğrulama kodunu girin",
+        verify_btn: "Doğrula",
+        code_error: "Kod hatalı ya da boş. Lütfen tekrar deneyin.",
+        code_message: "Kod yeniden gönderildi!",
+        time_left: "Kalan süre: ",
+        resend_link: "Kodu almadınız mı? Yeniden gönder",
+        sign_up_alt: "Başka bir e-posta ile kayıt ol"
+      }
+    };
+
+    let currentLang = "en";
+    let countdown = 30;
+    let interval;
+
+    function setLanguage(lang) {
+      const t = translations[lang];
+      currentLang = lang;
+      document.getElementById("title").innerText = t.title;
+      document.getElementById("text1").innerText = t.text1;
+      document.getElementById("text2").innerText = t.text2;
+      document.getElementById("code").placeholder = t.code_placeholder;
+      document.getElementById("verify-btn").innerText = t.verify_btn;
+      document.getElementById("code-error").innerText = t.code_error;
+      document.getElementById("code-message").innerText = t.code_message;
+      document.getElementById("time-text").innerText = t.time_left + countdown + "s";
+
+      document.getElementById("btn-tr").classList.remove("active");
+      document.getElementById("btn-en").classList.remove("active");
+      document.getElementById("btn-" + lang)?.classList.add("active");
+    }
+
+    document.getElementById("btn-tr").addEventListener("click", () => setLanguage("tr"));
+    document.getElementById("btn-en").addEventListener("click", () => setLanguage("en"));
+
+    setLanguage("en");
+
+    function verifyCode() {
+      const code = document.getElementById("code").value.trim();
+      const error = document.getElementById("code-error");
+      const msg = document.getElementById("code-message");
+      if (code === "") {
+        error.style.display = "block";
+        msg.style.display = "none";
+      } else {
+        error.style.display = "none";
+        alert("Code verified!");
+      }
+    }
+
+    function resendCode() {
+      const msg = document.getElementById("code-message");
+      msg.style.display = "block";
+      document.getElementById("code-error").style.display = "none";
+      resetTimer();
+    }
+
+    function startTimer() {
+      const bar = document.getElementById("progressBar");
+      const timeText = document.getElementById("time-text");
+      interval = setInterval(() => {
+        countdown--;
+        const percent = (countdown / 30) * 100;
+        bar.style.width = percent + "%";
+
+        if (countdown <= 10) {
+          bar.style.background = "#FF9800";
+        }
+        if (countdown <= 5) {
+          bar.style.background = "#FF3B3B";
+        }
+
+        timeText.innerText = translations[currentLang].time_left + countdown + "s";
+
+        if (countdown <= 0) {
+          clearInterval(interval);
+          bar.style.width = "0%";
+          timeText.innerText = translations[currentLang].time_left + "0s";
+        }
+      }, 1000);
+    }
+
+    function resetTimer() {
+      clearInterval(interval);
+      countdown = 30;
+      document.getElementById("progressBar").style.background = "#007BFF";
+      startTimer();
+    }
+
+    // Başlangıçta timer başlat
+    startTimer();
+  </script>
+
+</body>
+</html>

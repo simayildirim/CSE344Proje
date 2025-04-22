@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YUniThrift</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+    
+    .logo-container {
+      height: 50px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-container img {
+      height: 100%;
+      width: auto;
+    }
+    
+    .nav-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+    
+    .nav-icon:hover {
+      background-color: #f0f7ff;
+    }
+    
+    .nav-icon i {
+      font-size: 1.25rem;
+    }
+    
+    /* Tam ekran kapsayıcı */
+    .products-container {
+      width: 100%;
+      padding: 1rem;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Grid sistemi - Boşluk azaltıldı */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1rem;
+      width: 100%;
+    }
+    
+    /* Ürün kartları için stil */
+    .product-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Ürün resimleri için stil */
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body class="bg-blue-50 font-sans">
+  <!-- Header -->
+  <header class="flex items-center justify-between px-4 py-3 border-b shadow-sm bg-white">
+    <!-- Sol Logo - YUniThrift logosu eklendi -->
+    <div class="flex items-center gap-3">
+      <div class="logo-container">
+        <img src="https://i.ibb.co/G7JxKSZ/yunithrift-logo.png" alt="YUniThrift Logo" class="h-full">
+      </div>
+    </div>
+
+    <!-- Arama Kutusu -->
+    <div class="flex-1 mx-4">
+      <input type="text" placeholder="Search / Ara"
+             class="w-full border border-gray-300 px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600">
+    </div>
+
+    <!-- Sağ Menü -->
+    <div class="flex items-center gap-2">
+      <!-- Butonları sadece ikon olarak güncellendi ve tooltip eklendi -->
+      <button class="nav-icon text-gray-700 hover:text-blue-600" title="Bildirimler">
+        <i class="fas fa-bell"></i>
+      </button>
+      
+      <button class="nav-icon text-gray-700 hover:text-blue-600" title="Mesajlar">
+        <i class="fas fa-envelope"></i>
+      </button>
+      
+      <button class="nav-icon text-gray-700 hover:text-blue-600" title="Sepet">
+        <i class="fas fa-shopping-cart"></i>
+      </button>
+      
+      <button class="nav-icon text-gray-700 hover:text-blue-600" title="Ürün Ekle">
+        <i class="fas fa-plus-circle"></i>
+      </button>
+
+      <!-- Dil Seçimi - TR/ENG olarak değiştirildi -->
+      <select class="border rounded px-2 py-1 text-sm" onchange="changeLang(this.value)">
+        <option value="tr">TR</option>
+        <option value="en">ENG</option>
+      </select>
+
+      <!-- Dropdown Menu -->
+      <div class="relative dropdown">
+        <img src="https://via.placeholder.com/40" class="rounded-full w-10 h-10 cursor-pointer border">
+        <div class="absolute right-0 mt-2 w-52 bg-white text-gray-800 rounded shadow-lg dropdown-menu hidden z-10">
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100 lang" data-tr="Hesabım" data-en="My Account" onclick="window.location='hesabim.html'">👤 Hesabım</button>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100 lang" data-tr="Aldıklarım" data-en="My Purchases" onclick="window.location='aldiklarim.html'">🛍️ Aldıklarım</button>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100 lang" data-tr="Sattıklarım" data-en="My Sales" onclick="window.location='sattiklarim.html'">📦 Sattıklarım</button>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100 lang" data-tr="Favorilerim" data-en="Favorites" onclick="window.location='favorilerim.html'">❤️ Favorilerim</button>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100 lang" data-tr="Ayarlar" data-en="Settings" onclick="window.location='ayarlar.html'">⚙️ Ayarlar</button>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 lang" data-tr="Çıkış Yap" data-en="Logout" onclick="window.location='logout.html'">🚪 Çıkış Yap</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Ana İçerik - Tam genişlik ürün konteyner -->
+  <div class="products-container">
+    <!-- Ürünler - responsive grid kullanarak -->
+    <div class="products-grid">
+      <!-- Ürün Kartı 1 -->
+      <div class="border rounded-2xl p-3 shadow hover:shadow-xl transition bg-white relative product-card">
+        <img src="https://i.ibb.co/B23kC4S/t-cetveli.jpg" alt="T Cetveli" class="product-image rounded">
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-red-500">
+          <i class="far fa-heart"></i>
+        </button>
+        <button class="absolute top-10 right-2 text-gray-500 hover:text-black">
+          <i class="far fa-eye"></i>
+        </button>
+        <h2 class="text-lg font-semibold text-gray-800 mt-2">T Cetveli</h2>
+        <p class="text-sm text-gray-500">Satıcı: yeditepeli22</p>
+        <div class="text-red-500 font-bold text-base mb-2">560₺ <span class="text-gray-400 line-through text-sm">700₺</span></div>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+      </div>
+
+      <!-- Ürün Kartı 2 -->
+      <div class="border rounded-2xl p-3 shadow hover:shadow-xl transition bg-white relative product-card">
+        <img src="https://i.ibb.co/xzDhV6V/onluk.jpg" alt="Laboratuvar Önlüğü" class="product-image rounded">
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-red-500">
+          <i class="far fa-heart"></i>
+        </button>
+        <button class="absolute top-10 right-2 text-gray-500 hover:text-black">
+          <i class="far fa-eye"></i>
+        </button>
+        <h2 class="text-lg font-semibold text-gray-800 mt-2">Önlük - S Beden</h2>
+        <p class="text-sm text-gray-500">Satıcı: kimyamüh35</p>
+        <div class="text-red-500 font-bold text-base mb-2">120₺ <span class="text-gray-400 line-through text-sm">250₺</span></div>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+      </div>
+      
+      <!-- Ürün Kartı 3 -->
+      <div class="border rounded-2xl p-3 shadow hover:shadow-xl transition bg-white relative product-card">
+        <img src="https://i.ibb.co/2KZpTyw/kitap.jpg" alt="Fizik Kitabı" class="product-image rounded">
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-red-500">
+          <i class="far fa-heart"></i>
+        </button>
+        <button class="absolute top-10 right-2 text-gray-500 hover:text-black">
+          <i class="far fa-eye"></i>
+        </button>
+        <h2 class="text-lg font-semibold text-gray-800 mt-2">Modern Fizik Kitabı</h2>
+        <p class="text-sm text-gray-500">Satıcı: fizik_lover</p>
+        <div class="text-red-500 font-bold text-base mb-2">200₺ <span class="text-gray-400 line-through text-sm">320₺</span></div>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+      </div>
+      
+      <!-- Ürün Kartı 4 -->
+      <div class="border rounded-2xl p-3 shadow hover:shadow-xl transition bg-white relative product-card">
+        <img src="https://i.ibb.co/Fm0vvNJ/calculator.jpg" alt="Hesap Makinesi" class="product-image rounded">
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-red-500">
+          <i class="far fa-heart"></i>
+        </button>
+        <button class="absolute top-10 right-2 text-gray-500 hover:text-black">
+          <i class="far fa-eye"></i>
+        </button>
+        <h2 class="text-lg font-semibold text-gray-800 mt-2">Casio FX-991ES Plus</h2>
+        <p class="text-sm text-gray-500">Satıcı: muhendisadayi</p>
+        <div class="text-red-500 font-bold text-base mb-2">350₺ <span class="text-gray-400 line-through text-sm">420₺</span></div>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+      </div>
+      
+      <!-- Daha fazla ürün görüntüsü oluşturmak için önceki ürünlerin kopyaları -->
+      <!-- Ürün Kartı 5 (Copy of 1) -->
+      <div class="border rounded-2xl p-3 shadow hover:shadow-xl transition bg-white relative product-card">
+        <img src="https://i.ibb.co/B23kC4S/t-cetveli.jpg" alt="T Cetveli" class="product-image rounded">
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-red-500">
+          <i class="far fa-heart"></i>
+        </button>
+        <button class="absolute top-10 right-2 text-gray-500 hover:text-black">
+          <i class="far fa-eye"></i>
+        </button>
+        <h2 class="text-lg font-semibold text-gray-800 mt-2">T Cetveli Pro</h2>
+        <p class="text-sm text-gray-500">Satıcı: yeditepeli22</p>
+        <div class="text-red-500 font-bold text-base mb-2">580₺ <span class="text-gray-400 line-through text-sm">750₺</span></div>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+      </div>
+      
+      <!-- Ürün Kartı 6 (Copy of 2) -->
+      <div class="border rounded-2xl p-3 shadow hover:shadow-xl transition bg-white relative product-card">
+        <img src="https://i.ibb.co/xzDhV6V/onluk.jpg" alt="Laboratuvar Önlüğü" class="product-image rounded">
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-red-500">
+          <i class="far fa-heart"></i>
+        </button>
+        <button class="absolute top-10 right-2 text-gray-500 hover:text-black">
+          <i class="far fa-eye"></i>
+        </button>
+        <h2 class="text-lg font-semibold text-gray-800 mt-2">Önlük - M Beden</h2>
+        <p class="text-sm text-gray-500">Satıcı: kimyamüh35</p>
+        <div class="text-red-500 font-bold text-base mb-2">140₺ <span class="text-gray-400 line-through text-sm">270₺</span></div>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+      </div>
+      
+      <!-- Ürün Kartı 7 (Copy of 3) -->
+      <div class="border rounded-2xl p-3 shadow hover:shadow-xl transition bg-white relative product-card">
+        <img src="https://i.ibb.co/2KZpTyw/kitap.jpg" alt="Fizik Kitabı" class="product-image rounded">
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-red-500">
+          <i class="far fa-heart"></i>
+        </button>
+        <button class="absolute top-10 right-2 text-gray-500 hover:text-black">
+          <i class="far fa-eye"></i>
+        </button>
+        <h2 class="text-lg font-semibold text-gray-800 mt-2">Kuantum Fizik Kitabı</h2>
+        <p class="text-sm text-gray-500">Satıcı: fizik_lover</p>
+        <div class="text-red-500 font-bold text-base mb-2">220₺ <span class="text-gray-400 line-through text-sm">350₺</span></div>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+      </div>
+      
+      <!-- Ürün Kartı 8 (Copy of 4) -->
+      <div class="border rounded-2xl p-3 shadow hover:shadow-xl transition bg-white relative product-card">
+        <img src="https://i.ibb.co/Fm0vvNJ/calculator.jpg" alt="Hesap Makinesi" class="product-image rounded">
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-red-500">
+          <i class="far fa-heart"></i>
+        </button>
+        <button class="absolute top-10 right-2 text-gray-500 hover:text-black">
+          <i class="far fa-eye"></i>
+        </button>
+        <h2 class="text-lg font-semibold text-gray-800 mt-2">Casio FX-991EX</h2>
+        <p class="text-sm text-gray-500">Satıcı: muhendisadayi</p>
+        <div class="text-red-500 font-bold text-base mb-2">450₺ <span class="text-gray-400 line-through text-sm">520₺</span></div>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function changeLang(lang) {
+      document.querySelectorAll('.lang').forEach(el => {
+        el.innerText = el.dataset[lang];
+      });
+    }
+  </script>
+</body>
+</html>
