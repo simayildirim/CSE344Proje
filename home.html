@@ -99,11 +99,11 @@
         <i class="fas fa-envelope"></i>
       </button>
       
-      <button class="nav-icon text-gray-700 hover:text-blue-600" title="Sepet">
+      <button class="nav-icon text-gray-700 hover:text-blue-600" title="Sepet" onclick="window.location.href='cart.html'">
         <i class="fas fa-shopping-cart"></i>
       </button>
       
-      <button class="nav-icon text-gray-700 hover:text-blue-600" title="Ürün Ekle">
+      <button class="nav-icon text-gray-700 hover:text-blue-600" title="Ürün Ekle" onclick="window.location.href='product.html'">
         <i class="fas fa-plus-circle"></i>
       </button>
 
@@ -144,7 +144,9 @@
         <h2 class="text-lg font-semibold text-gray-800 mt-2">T Cetveli</h2>
         <p class="text-sm text-gray-500">Satıcı: yeditepeli22</p>
         <div class="text-red-500 font-bold text-base mb-2">560₺ <span class="text-gray-400 line-through text-sm">700₺</span></div>
-        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" 
+                data-tr="Sepete Ekle" data-en="Add to Cart"
+                onclick="addToCart('T Cetveli', 560, 'https://i.ibb.co/B23kC4S/t-cetveli.jpg')">Sepete Ekle</button>
       </div>
 
       <!-- Ürün Kartı 2 -->
@@ -159,7 +161,9 @@
         <h2 class="text-lg font-semibold text-gray-800 mt-2">Önlük - S Beden</h2>
         <p class="text-sm text-gray-500">Satıcı: kimyamüh35</p>
         <div class="text-red-500 font-bold text-base mb-2">120₺ <span class="text-gray-400 line-through text-sm">250₺</span></div>
-        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" 
+                data-tr="Sepete Ekle" data-en="Add to Cart"
+                onclick="addToCart('Önlük - S Beden', 120, 'https://i.ibb.co/xzDhV6V/onluk.jpg')">Sepete Ekle</button>
       </div>
       
       <!-- Ürün Kartı 3 -->
@@ -174,7 +178,9 @@
         <h2 class="text-lg font-semibold text-gray-800 mt-2">Modern Fizik Kitabı</h2>
         <p class="text-sm text-gray-500">Satıcı: fizik_lover</p>
         <div class="text-red-500 font-bold text-base mb-2">200₺ <span class="text-gray-400 line-through text-sm">320₺</span></div>
-        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" 
+                data-tr="Sepete Ekle" data-en="Add to Cart"
+                onclick="addToCart('Modern Fizik Kitabı', 200, 'https://i.ibb.co/2KZpTyw/kitap.jpg')">Sepete Ekle</button>
       </div>
       
       <!-- Ürün Kartı 4 -->
@@ -189,7 +195,9 @@
         <h2 class="text-lg font-semibold text-gray-800 mt-2">Casio FX-991ES Plus</h2>
         <p class="text-sm text-gray-500">Satıcı: muhendisadayi</p>
         <div class="text-red-500 font-bold text-base mb-2">350₺ <span class="text-gray-400 line-through text-sm">420₺</span></div>
-        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" 
+                data-tr="Sepete Ekle" data-en="Add to Cart"
+                onclick="addToCart('Casio FX-991ES Plus', 350, 'https://i.ibb.co/Fm0vvNJ/calculator.jpg')">Sepete Ekle</button>
       </div>
       
       <!-- Daha fazla ürün görüntüsü oluşturmak için önceki ürünlerin kopyaları -->
@@ -205,7 +213,9 @@
         <h2 class="text-lg font-semibold text-gray-800 mt-2">T Cetveli Pro</h2>
         <p class="text-sm text-gray-500">Satıcı: yeditepeli22</p>
         <div class="text-red-500 font-bold text-base mb-2">580₺ <span class="text-gray-400 line-through text-sm">750₺</span></div>
-        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" 
+                data-tr="Sepete Ekle" data-en="Add to Cart"
+                onclick="addToCart('T Cetveli Pro', 580, 'https://i.ibb.co/B23kC4S/t-cetveli.jpg')">Sepete Ekle</button>
       </div>
       
       <!-- Ürün Kartı 6 (Copy of 2) -->
@@ -220,7 +230,9 @@
         <h2 class="text-lg font-semibold text-gray-800 mt-2">Önlük - M Beden</h2>
         <p class="text-sm text-gray-500">Satıcı: kimyamüh35</p>
         <div class="text-red-500 font-bold text-base mb-2">140₺ <span class="text-gray-400 line-through text-sm">270₺</span></div>
-        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" 
+                data-tr="Sepete Ekle" data-en="Add to Cart"
+                onclick="addToCart('Önlük - M Beden', 140, 'https://i.ibb.co/xzDhV6V/onluk.jpg')">Sepete Ekle</button>
       </div>
       
       <!-- Ürün Kartı 7 (Copy of 3) -->
@@ -235,7 +247,9 @@
         <h2 class="text-lg font-semibold text-gray-800 mt-2">Kuantum Fizik Kitabı</h2>
         <p class="text-sm text-gray-500">Satıcı: fizik_lover</p>
         <div class="text-red-500 font-bold text-base mb-2">220₺ <span class="text-gray-400 line-through text-sm">350₺</span></div>
-        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" 
+                data-tr="Sepete Ekle" data-en="Add to Cart"
+                onclick="addToCart('Kuantum Fizik Kitabı', 220, 'https://i.ibb.co/2KZpTyw/kitap.jpg')">Sepete Ekle</button>
       </div>
       
       <!-- Ürün Kartı 8 (Copy of 4) -->
@@ -250,7 +264,9 @@
         <h2 class="text-lg font-semibold text-gray-800 mt-2">Casio FX-991EX</h2>
         <p class="text-sm text-gray-500">Satıcı: muhendisadayi</p>
         <div class="text-red-500 font-bold text-base mb-2">450₺ <span class="text-gray-400 line-through text-sm">520₺</span></div>
-        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" data-tr="Sepete Ekle" data-en="Add to Cart">Sepete Ekle</button>
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition lang mt-auto" 
+                data-tr="Sepete Ekle" data-en="Add to Cart"
+                onclick="addToCart('Casio FX-991EX', 450, 'https://i.ibb.co/Fm0vvNJ/calculator.jpg')">Sepete Ekle</button>
       </div>
     </div>
   </div>
@@ -260,6 +276,26 @@
       document.querySelectorAll('.lang').forEach(el => {
         el.innerText = el.dataset[lang];
       });
+    }
+
+    // Sepete ekleme fonksiyonu
+    function addToCart(productName, price, imageUrl) {
+      // Sepet verisini localStorage'dan al veya yeni bir dizi oluştur
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      // Yeni ürünü sepete ekle
+      cart.push({
+        name: productName,
+        price: price,
+        image: imageUrl,
+        quantity: 1
+      });
+      
+      // Sepeti localStorage'a kaydet
+      localStorage.setItem('cart', JSON.stringify(cart));
+      
+      // Kullanıcıyı cart.html sayfasına yönlendir
+      window.location.href = 'cart.html';
     }
   </script>
 </body>
