@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Hesabım | YUniThrift</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      min-width: 1200px; 
+    }
+    .container-fixed {
+      width: 1000px;
+      margin: 0 auto;
+    }
+    .lang-tab:hover {
+      background-color: #f3f4f6;
+    }
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #374151;
+    }
+    .subsection-title {
+      font-weight: 500;
+      margin: 1.5rem 0 0.5rem;
+      color: #374151;
+    }
+    .menu-item {
+      padding: 0.5rem 0;
+      cursor: pointer;
+    }
+    .menu-item:hover {
+      color: #3b82f6;
+    }
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .form-input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.25rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body class="bg-blue-50 font-sans">
+  <!-- Header -->
+  <header class="flex items-center justify-between px-8 py-4 border-b shadow-sm bg-white container-fixed">
+    <div class="flex items-center gap-3">
+      <div class="logo-container h-12">
+        <img src="https://i.ibb.co/G7JxKSZ/yunithrift-logo.png" alt="YUniThrift Logo" class="h-full">
+      </div>
+    </div>
+
+    <div class="w-1/2">
+      <input type="text" placeholder="Search / Ara" class="w-full border border-gray-300 px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600">
+    </div>
+
+    <div class="flex items-center gap-4">
+      <button class="flex items-center gap-1 text-gray-700 hover:text-blue-600">
+        <i class="fas fa-bell"></i><span class="text-sm font-medium lang" data-tr="Bildirimler" data-en="Notifications">Bildirimler</span>
+      </button>
+      <button class="flex items-center gap-1 text-gray-700 hover:text-blue-600">
+        <i class="fas fa-envelope"></i><span class="text-sm font-medium lang" data-tr="Mesajlar" data-en="Messages">Mesajlar</span>
+      </button>
+      <button class="flex items-center gap-1 text-gray-700 hover:text-blue-600">
+        <i class="fas fa-shopping-cart"></i><span class="text-sm font-medium lang" data-tr="Sepetim" data-en="My Cart">Sepetim</span>
+      </button>
+      <select class="border rounded px-2 py-1 text-sm" onchange="changeLang(this.value)">
+        <option value="tr">🇹🇷 Türkçe</option>
+        <option value="en">🇬🇧 English</option>
+      </select>
+      <img src="https://via.placeholder.com/40" class="rounded-full w-10 h-10 border cursor-pointer">
+    </div>
+  </header>
+
+  <!-- Profile Content -->
+  <div class="container-fixed flex mt-6 gap-6">
+    <!-- Sidebar -->
+    <div class="w-1/4 bg-white shadow rounded p-4">
+      <h2 class="section-title lang" data-tr="Hesabım" data-en="My Account">Hesabım</h2>
+      
+      <div>
+        <h3 class="subsection-title lang" data-tr="Hesabı Yönet" data-en="Manage Account">Hesabı Yönet</h3>
+        <div class="menu-item lang" data-tr="Profilimi Düzenle" data-en="Edit Profile">Profilimi Düzenle</div>
+        <div class="menu-item lang" data-tr="Ödeme Seçeneklerim" data-en="Payment Options">Ödeme Seçeneklerim</div>
+      </div>
+      
+      <div>
+        <h3 class="subsection-title lang" data-tr="İşlemlerim" data-en="My Transactions">İşlemlerim</h3>
+        <div class="menu-item lang" data-tr="Aldıklarım" data-en="Purchases">Aldıklarım</div>
+        <div class="menu-item lang" data-tr="Satılıklarım" data-en="Sales">Satılıklarım</div>
+      </div>
+      
+      <div>
+        <h3 class="subsection-title lang" data-tr="Favorilerim" data-en="Favorites">Favorilerim</h3>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="w-3/4 bg-white shadow rounded p-6">
+      <h1 class="text-2xl font-semibold text-gray-800 mb-6 lang" data-tr="Profilimi Düzenle" data-en="Edit Profile">Profilimi Düzenle</h1>
+      
+      <form>
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="form-label lang" data-tr="İsim" data-en="First Name">İsim</label>
+            <input type="text" class="form-input" value="Eren">
+          </div>
+          <div>
+            <label class="form-label lang" data-tr="Soyisim" data-en="Last Name">Soyisim</label>
+            <input type="text" class="form-input" value="Akyürek">
+          </div>
+          <div>
+            <label class="form-label lang" data-tr="E-posta" data-en="Email">E-posta</label>
+            <input type="email" class="form-input" value="Prendiyurek@std.yeditepe.tr">
+          </div>
+          <div>
+            <label class="form-label lang" data-tr="Adres" data-en="Address">Adres</label>
+            <input type="text" class="form-input" value="Ankara/Çankaya 06234">
+          </div>
+        </div>
+
+        <h2 class="section-title lang" data-tr="Parola Değiştir" data-en="Change Password">Parola Değiştir</h2>
+        
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="form-label lang" data-tr="Eski Parola" data-en="Current Password">Eski Parola</label>
+            <input type="password" class="form-input">
+          </div>
+          <div></div>
+          <div>
+            <label class="form-label lang" data-tr="Yeni Parola" data-en="New Password">Yeni Parola</label>
+            <input type="password" class="form-input">
+          </div>
+          <div>
+            <label class="form-label lang" data-tr="Yeni Parola Onayla" data-en="Confirm New Password">Yeni Parola Onayla</label>
+            <input type="password" class="form-input">
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-4 mt-8">
+          <button type="button" class="px-6 py-2 border border-gray-300 rounded hover:bg-gray-100 lang" data-tr="İptal" data-en="Cancel">İptal</button>
+          <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 lang" data-tr="Kaydet" data-en="Save">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function changeLang(lang) {
+      document.querySelectorAll('.lang').forEach(el => {
+        el.innerText = el.dataset[lang];
+      });
+    }
+  </script>
+</body>
+</html>
