@@ -11,14 +11,16 @@ import {
   ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleLogin = () => {
     // Burada giriş işlemleri yapılacak
-    navigation.replace('MainApp');
+    router.replace('/tabs');
   };
 
   return (
@@ -30,7 +32,7 @@ export default function LoginScreen({ navigation }) {
         <ScrollView contentContainerStyle={styles.scrollView}>
           <View style={styles.logoContainer}>
             <Image
-              source={require('../assets/logo.png')}
+              source={require('../assets/images/logo.png')}
               style={styles.logo}
               resizeMode="contain"
             />
@@ -58,7 +60,7 @@ export default function LoginScreen({ navigation }) {
 
             <TouchableOpacity
               style={styles.forgotPassword}
-              onPress={() => navigation.navigate('ForgotPassword')}
+              onPress={() => router.push('/forgot-password')}
             >
               <Text style={styles.forgotPasswordText}>Şifremi Unuttum</Text>
             </TouchableOpacity>
@@ -69,7 +71,7 @@ export default function LoginScreen({ navigation }) {
 
             <View style={styles.signupContainer}>
               <Text style={styles.signupText}>Hesabınız yok mu? </Text>
-              <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+              <TouchableOpacity onPress={() => router.push('/signup')}>
                 <Text style={styles.signupLink}>Kayıt Ol</Text>
               </TouchableOpacity>
             </View>

@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
-export default function NotificationScreen({ navigation }) {
+export default function NotificationScreen() {
   const notifications = [
     {
       id: '1',
@@ -37,6 +38,7 @@ export default function NotificationScreen({ navigation }) {
       read: true,
     },
   ];
+  const router = useRouter();
 
   const getNotificationIcon = (type) => {
     switch (type) {
@@ -94,7 +96,7 @@ export default function NotificationScreen({ navigation }) {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}
+          onPress={() => router.back()}
         >
           <Ionicons name="arrow-back" size={24} color="#333" />
         </TouchableOpacity>

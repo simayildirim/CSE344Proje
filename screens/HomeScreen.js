@@ -10,8 +10,9 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [products, setProducts] = useState([
     // Örnek ürün verileri
@@ -29,11 +30,12 @@ export default function HomeScreen({ navigation }) {
     },
     // Daha fazla ürün eklenebilir
   ]);
+  const router = useRouter();
 
   const renderProduct = ({ item }) => (
     <TouchableOpacity
       style={styles.productCard}
-      onPress={() => navigation.navigate('ProductDetail', { product: item })}
+      onPress={() => router.push({ pathname: '/product-detail', params: { ...item } })}
     >
       <Image source={{ uri: item.image }} style={styles.productImage} />
       <View style={styles.productInfo}>
@@ -57,7 +59,7 @@ export default function HomeScreen({ navigation }) {
         </View>
         <TouchableOpacity
           style={styles.addButton}
-          onPress={() => navigation.navigate('Product')}
+          onPress={() => router.push('/product')}
         >
           <Ionicons name="add-circle-outline" size={24} color="#007AFF" />
         </TouchableOpacity>

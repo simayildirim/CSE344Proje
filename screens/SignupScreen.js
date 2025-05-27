@@ -12,12 +12,14 @@ import {
   Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 
-export default function SignupScreen({ navigation }) {
+export default function SignupScreen() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const router = useRouter();
 
   const handleSignup = () => {
     if (!name || !email || !password || !confirmPassword) {
@@ -34,7 +36,7 @@ export default function SignupScreen({ navigation }) {
     Alert.alert('Başarılı', 'Kayıt işlemi başarılı. Giriş yapabilirsiniz.', [
       {
         text: 'Tamam',
-        onPress: () => navigation.navigate('Login'),
+        onPress: () => router.replace('/login'),
       },
     ]);
   };
@@ -48,7 +50,7 @@ export default function SignupScreen({ navigation }) {
         <ScrollView contentContainerStyle={styles.scrollView}>
           <View style={styles.logoContainer}>
             <Image
-              source={require('../assets/logo.png')}
+              source={require('../assets/images/logo.png')}
               style={styles.logo}
               resizeMode="contain"
             />
@@ -95,7 +97,7 @@ export default function SignupScreen({ navigation }) {
 
             <View style={styles.loginContainer}>
               <Text style={styles.loginText}>Zaten hesabınız var mı? </Text>
-              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+              <TouchableOpacity onPress={() => router.push('/login')}>
                 <Text style={styles.loginLink}>Giriş Yap</Text>
               </TouchableOpacity>
             </View>

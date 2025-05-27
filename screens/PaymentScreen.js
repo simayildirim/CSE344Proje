@@ -10,12 +10,14 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
-export default function PaymentScreen({ navigation }) {
+export default function PaymentScreen() {
   const [cardNumber, setCardNumber] = useState('');
   const [cardHolder, setCardHolder] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
+  const router = useRouter();
 
   const handleSaveCard = () => {
     if (!cardNumber || !cardHolder || !expiryDate || !cvv) {
@@ -27,7 +29,7 @@ export default function PaymentScreen({ navigation }) {
     Alert.alert('Başarılı', 'Kart bilgileriniz kaydedildi.', [
       {
         text: 'Tamam',
-        onPress: () => navigation.goBack(),
+        onPress: () => router.back(),
       },
     ]);
   };
@@ -52,7 +54,7 @@ export default function PaymentScreen({ navigation }) {
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.backButton}
-            onPress={() => navigation.goBack()}
+            onPress={() => router.back()}
           >
             <Ionicons name="arrow-back" size={24} color="#333" />
           </TouchableOpacity>

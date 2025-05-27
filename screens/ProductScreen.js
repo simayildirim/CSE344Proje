@@ -12,12 +12,14 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import { useRouter } from 'expo-router';
 
-export default function ProductScreen({ navigation }) {
+export default function ProductScreen() {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
+  const router = useRouter();
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -49,7 +51,7 @@ export default function ProductScreen({ navigation }) {
     Alert.alert('Başarılı', 'Ürün başarıyla eklendi.', [
       {
         text: 'Tamam',
-        onPress: () => navigation.goBack(),
+        onPress: () => router.back(),
       },
     ]);
   };
@@ -60,7 +62,7 @@ export default function ProductScreen({ navigation }) {
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.backButton}
-            onPress={() => navigation.goBack()}
+            onPress={() => router.back()}
           >
             <Ionicons name="arrow-back" size={24} color="#333" />
           </TouchableOpacity>

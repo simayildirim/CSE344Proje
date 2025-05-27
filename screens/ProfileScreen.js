@@ -9,38 +9,41 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
-export default function ProfileScreen({ navigation }) {
+export default function ProfileScreen() {
+  const router = useRouter();
   const menuItems = [
     {
       title: 'Profilimi Düzenle',
       icon: 'person-outline',
-      screen: 'Profile',
+      screen: '/settings',
     },
     {
       title: 'Ödeme Seçeneklerim',
       icon: 'card-outline',
-      screen: 'Payment',
+      screen: '/payment',
     },
     {
       title: 'Aldıklarım',
       icon: 'cart-outline',
-      screen: 'MyPurchases',
+      screen: '/my-purchases',
     },
     {
       title: 'Sattıklarım',
       icon: 'bag-outline',
-      screen: 'MySales',
+      screen: '/my-sales',
     },
     {
       title: 'Favorilerim',
       icon: 'heart-outline',
-      screen: 'Favorites',
+      screen: '/favorites',
     },
     {
       title: 'Çıkış Yap',
       icon: 'log-out-outline',
-      screen: 'Login',
+      screen: '/login',
+      logout: true,
     },
   ];
 
@@ -61,7 +64,13 @@ export default function ProfileScreen({ navigation }) {
             <TouchableOpacity
               key={index}
               style={styles.menuItem}
-              onPress={() => navigation.navigate(item.screen)}
+              onPress={() => {
+                if (item.logout) {
+                  router.replace(item.screen);
+                } else {
+                  router.push(item.screen);
+                }
+              }}
             >
               <View style={styles.menuItemLeft}>
                 <Ionicons name={item.icon} size={24} color="#666" />

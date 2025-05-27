@@ -10,11 +10,13 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
-export default function SettingsScreen({ navigation }) {
+export default function SettingsScreen() {
   const [notifications, setNotifications] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
   const [locationServices, setLocationServices] = useState(true);
+  const router = useRouter();
 
   const handleLogout = () => {
     Alert.alert(
@@ -28,7 +30,7 @@ export default function SettingsScreen({ navigation }) {
         {
           text: 'Çıkış Yap',
           style: 'destructive',
-          onPress: () => navigation.replace('Login'),
+          onPress: () => router.replace('/login'),
         },
       ]
     );
@@ -61,25 +63,25 @@ export default function SettingsScreen({ navigation }) {
       icon: 'language-outline',
       type: 'navigate',
       value: 'Türkçe',
-      onPress: () => navigation.navigate('Language'),
+      onPress: () => router.push('/language'),
     },
     {
       title: 'Gizlilik Politikası',
       icon: 'shield-outline',
       type: 'navigate',
-      onPress: () => navigation.navigate('Privacy'),
+      onPress: () => router.push('/privacy'),
     },
     {
       title: 'Kullanım Koşulları',
       icon: 'document-text-outline',
       type: 'navigate',
-      onPress: () => navigation.navigate('Terms'),
+      onPress: () => router.push('/terms'),
     },
     {
       title: 'Hakkında',
       icon: 'information-circle-outline',
       type: 'navigate',
-      onPress: () => navigation.navigate('About'),
+      onPress: () => router.push('/about'),
     },
   ];
 
@@ -88,7 +90,7 @@ export default function SettingsScreen({ navigation }) {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}
+          onPress={() => router.back()}
         >
           <Ionicons name="arrow-back" size={24} color="#333" />
         </TouchableOpacity>

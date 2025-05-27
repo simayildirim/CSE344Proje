@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
-export default function FavoritesScreen({ navigation }) {
+export default function FavoritesScreen() {
   const [favorites, setFavorites] = useState([
     {
       id: '1',
@@ -25,6 +26,7 @@ export default function FavoritesScreen({ navigation }) {
       image: 'https://via.placeholder.com/150',
     },
   ]);
+  const router = useRouter();
 
   const removeFromFavorites = (id) => {
     setFavorites(favorites.filter((item) => item.id !== id));
@@ -34,7 +36,7 @@ export default function FavoritesScreen({ navigation }) {
     <View style={styles.favoriteItem}>
       <TouchableOpacity
         style={styles.itemContent}
-        onPress={() => navigation.navigate('ProductDetail', { product: item })}
+        onPress={() => router.push({ pathname: '/product-detail', params: { ...item } })}
       >
         <Image source={{ uri: item.image }} style={styles.itemImage} />
         <View style={styles.itemInfo}>
@@ -54,6 +56,9 @@ export default function FavoritesScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton} onPress={() => router.push('/tabs/home')}>
+          <Ionicons name="arrow-back" size={24} color="#333" />
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>Favorilerim</Text>
       </View>
 
@@ -80,9 +85,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
+    flexDirection: 'row',
+    alignItems: 'center',
     padding: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
+  },
+  backButton: {
+    marginRight: 15,
   },
   headerTitle: {
     fontSize: 20,

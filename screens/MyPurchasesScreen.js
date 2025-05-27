@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
-export default function MyPurchasesScreen({ navigation }) {
+export default function MyPurchasesScreen() {
   const purchases = [
     {
       id: '1',
@@ -29,6 +30,7 @@ export default function MyPurchasesScreen({ navigation }) {
       image: 'https://via.placeholder.com/100',
     },
   ];
+  const router = useRouter();
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -46,7 +48,7 @@ export default function MyPurchasesScreen({ navigation }) {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.purchaseItem}
-      onPress={() => navigation.navigate('ProductDetail', { product: item })}
+      onPress={() => router.push({ pathname: '/product-detail', params: { ...item } })}
     >
       <Image source={{ uri: item.image }} style={styles.itemImage} />
       <View style={styles.itemInfo}>
@@ -76,7 +78,7 @@ export default function MyPurchasesScreen({ navigation }) {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}
+          onPress={() => router.back()}
         >
           <Ionicons name="arrow-back" size={24} color="#333" />
         </TouchableOpacity>

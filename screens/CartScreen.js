@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
-export default function CartScreen({ navigation }) {
+export default function CartScreen() {
   const [cartItems, setCartItems] = useState([
     {
       id: '1',
@@ -27,6 +28,7 @@ export default function CartScreen({ navigation }) {
       image: 'https://via.placeholder.com/100',
     },
   ]);
+  const router = useRouter();
 
   const updateQuantity = (id, change) => {
     setCartItems(
@@ -98,7 +100,7 @@ export default function CartScreen({ navigation }) {
           <Text style={styles.totalText}>Toplam:</Text>
           <Text style={styles.totalAmount}>{calculateTotal().toFixed(2)} TL</Text>
         </View>
-        <TouchableOpacity style={styles.checkoutButton}>
+        <TouchableOpacity style={styles.checkoutButton} onPress={() => router.push('/payment')}>
           <Text style={styles.checkoutButtonText}>Ödemeye Geç</Text>
         </TouchableOpacity>
       </View>

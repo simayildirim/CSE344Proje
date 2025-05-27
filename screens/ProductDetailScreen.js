@@ -10,11 +10,14 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 
 const { width } = Dimensions.get('window');
 
-export default function ProductDetailScreen({ route, navigation }) {
-  const { product } = route.params;
+export default function ProductDetailScreen() {
+  const router = useRouter();
+  const params = useLocalSearchParams();
+  const product = params;
   const [isFavorite, setIsFavorite] = useState(false);
 
   const toggleFavorite = () => {
@@ -27,7 +30,7 @@ export default function ProductDetailScreen({ route, navigation }) {
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.backButton}
-            onPress={() => navigation.goBack()}
+            onPress={() => router.back()}
           >
             <Ionicons name="arrow-back" size={24} color="#333" />
           </TouchableOpacity>

@@ -12,9 +12,11 @@ import {
   Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 
-export default function ForgotPasswordScreen({ navigation }) {
+export default function ForgotPasswordScreen() {
   const [email, setEmail] = useState('');
+  const router = useRouter();
 
   const handleResetPassword = () => {
     if (!email) {
@@ -29,7 +31,7 @@ export default function ForgotPasswordScreen({ navigation }) {
       [
         {
           text: 'Tamam',
-          onPress: () => navigation.navigate('Login'),
+          onPress: () => router.replace('/login'),
         },
       ]
     );
@@ -44,7 +46,7 @@ export default function ForgotPasswordScreen({ navigation }) {
         <ScrollView contentContainerStyle={styles.scrollView}>
           <View style={styles.logoContainer}>
             <Image
-              source={require('../assets/logo.png')}
+              source={require('../assets/images/logo.png')}
               style={styles.logo}
               resizeMode="contain"
             />
@@ -75,7 +77,7 @@ export default function ForgotPasswordScreen({ navigation }) {
 
             <TouchableOpacity
               style={styles.backButton}
-              onPress={() => navigation.navigate('Login')}
+              onPress={() => router.push('/login')}
             >
               <Text style={styles.backButtonText}>Giriş Sayfasına Dön</Text>
             </TouchableOpacity>
